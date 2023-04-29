@@ -1,0 +1,31 @@
+Phase:	Tokens 
+Input: Token 
+Options: control = brill
+
+Rule:TokenPersonRule
+(
+ ({Token.string==~"[Qq]uand"}|{Token.string=="[Ll]ors"})
+ ({Token.kind == word})*
+ ({Token.upos == PRON}|{Token.upos == NOUN}):p
+ ({Token.kind == word})*
+ ({Token.upos == VERB})
+)
+--> 
+:p.QuandPerson = {rule = "TokenPersonRule"}
+
+Rule:TokenVerbeoRule
+(
+ ({Token.string==~"[Qq]uand"}|{Token.string=="[Ll]ors"})
+ (({Token.kind == word})*)
+ ({Token.upos == VERB}):v
+)
+--> 
+:v.QuandVerbe = {rule = "TokenVerbeRule"}
+
+Rule:TokenContextRule
+(
+ ({Token.string==~"[Qq]uand"}|{Token.string=="[Ll]ors"})
+ (({Token.kind == word})*)
+):c
+--> 
+:c.QuandContext = {rule = "TokenContextRule"}

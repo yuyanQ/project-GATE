@@ -1,0 +1,29 @@
+Phase:	Tokens 
+Input: Token 
+Options: control = brill
+
+Rule:TokenPersonRule
+(
+ ({Token.string=="When"}|{Token.string=="when"}|{Token.string=="While"}|{Token.string=="while"})
+ (({Token.kind == word})*)
+ ({Token.category==NNP}|{Token.category==PRP}|{Token.category==NN}):p
+)
+--> 
+:p.WhenPerson = {rule = "TokenPersonRule"}
+
+Rule:TokenVerbeoRule
+(
+ ({Token.string=="When"}|{Token.string=="when"}|{Token.string=="While"}|{Token.string=="while"})
+ (({Token.kind == word})*)
+ ({Token.category == VB}|{Token.category == VBD}|{Token.category == VBG}|{Token.category == VBN} | {Token.category == VBP}|{Token.category == VBZ}):f
+)
+--> 
+:f.WhenVerbe = {rule = "TokenVerbeRule"}
+
+Rule:TokenContextRule
+(
+ ({Token.string=="When"}|{Token.string=="when"}|{Token.string=="While"}|{Token.string=="while"})
+ (({Token.kind == word})*)
+):c
+--> 
+:c.WhenContext = {rule = "TokenContextRule"}

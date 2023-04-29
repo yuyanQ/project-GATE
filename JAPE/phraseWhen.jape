@@ -1,0 +1,18 @@
+Phase:	Phrases
+Input: Token Sentence
+Options: control = appelt
+
+Rule:PhraseWhenRule
+(
+ {Sentence contains {Token.string==~"[Ww]hen"}} | {Sentence contains {Token.string==~"[Ww]hile"}} 
+):phrase
+-->
+:phrase.PhraseWhen = {rule = "PhraseWhenRule"}
+
+
+Rule:PhraseWhenRule
+(
+ {Sentence contains {Token.string=="when"}}  
+):phrase
+-->
+:phrase.PhraseWhen = {rule = "PhraseWhenRule"}
